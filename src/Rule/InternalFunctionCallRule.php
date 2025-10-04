@@ -1,0 +1,62 @@
+<?php
+
+// Code taken from https://github.com/TemirkhanN/phpstan-internal-rule
+
+declare(strict_types=1);
+
+namespace HeyFrame\PhpStan\Rule;
+
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
+use HeyFrame\PhpStan\Helper\NamespaceChecker;
+
+/**
+ * @implements Rule<FuncCall>
+ *
+ * @internal
+ */
+class InternalFunctionCallRule implements Rule
+{
+    private ReflectionProvider $reflectionProvider;
+
+    public function __construct(ReflectionProvider $reflectionProvider)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+    }
+
+    public function getNodeType(): string
+    {
+        return FuncCall::class;
+    }
+
+    public function processNode(Node $node, Scope $scope): array
+    {
+        if (!$node->name instanceof Node\Name) {
+            return [];
+        }
+
+        $function = $this->reflectionProvider->getFunction($node->name, null);
+        if (!$function->isInternal()->yes()) {
+            return [];
+        }
+
+        $functionNamespace = NamespaceChecker::getNamespace($function->getName());
+        if (false === str_starts_with($functionNamespace, 'HeyFrame\\')) {
+            return [];
+        }
+        if (NamespaceChecker::arePartOfTheSamePackage($functionNamespace, $scope->getNamespace())) {
+            return [];
+        }
+
+        return [
+            RuleErrorBuilder::message(sprintf('Call of internal function %s Please refrain from using functions which are annotated with @internal in the HeyFrame 6 repository.', $function->getName()))
+                ->line($node->getLine())
+                ->identifier('heyframe.internalFunctionCall')
+                ->build(),
+        ];
+    }
+}

@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace HeyFrame\PhpStan\Tests\Rule;
+
+use PHPStan\Rules\Rule;
+use PHPStan\Testing\RuleTestCase;
+use HeyFrame\PhpStan\Rule\NoEntityRepositoryInLoopRule;
+
+/**
+ * @extends RuleTestCase<NoEntityRepositoryInLoopRule>
+ */
+class NoEntityRepositoryInLoopRuleTest extends RuleTestCase
+{
+    protected function getRule(): Rule
+    {
+        return new NoEntityRepositoryInLoopRule();
+    }
+
+    public function testRule(): void
+    {
+        $this->analyse([__DIR__ . '/fixtures/NoEntityRepositoryInLoop/NoEntityRepositoryInLoop.php'], [
+            [
+                'EntityRepository method calls are not allowed within loops. This can lead to unexpected N:1 queries.',
+                20,
+            ],
+            [
+                'EntityRepository method calls are not allowed within loops. This can lead to unexpected N:1 queries.',
+                28,
+            ],
+        ]);
+    }
+}

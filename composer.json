@@ -1,0 +1,45 @@
+{
+  "name": "heyframe/phpstan-heyframe",
+  "description": "PhpStan Rules for HeyFrame",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": "^8.2",
+    "phpstan/phpstan": "^2",
+    "symfony/polyfill-php84": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "v3.84.0",
+    "phpstan/extension-installer": "*",
+    "phpunit/phpunit": "~11.3.6",
+    "heyframe/core": "^6.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "HeyFrame\\PhpStan\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "HeyFrame\\PhpStan\\Tests\\": "tests/"
+    },
+    "classmap": [
+      "tests/Rule/fixtures",
+      "tests/Rule/BestPractise/fixtures"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "phpstan/extension-installer": true,
+      "symfony/runtime": false
+    }
+  },
+  "extra": {
+    "phpstan": {
+      "includes": [
+        "rules.neon"
+      ]
+    }
+  }
+}

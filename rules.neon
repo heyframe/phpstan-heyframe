@@ -1,0 +1,39 @@
+rules:
+    - HeyFrame\PhpStan\Rule\ClassExtendUsesAbstractClassWhenExisting
+    - HeyFrame\PhpStan\Rule\DisallowDefaultContextCreation
+    - HeyFrame\PhpStan\Rule\DisallowFunctionsRule
+    - HeyFrame\PhpStan\Rule\DisallowSessionFunctionsRule
+    - HeyFrame\PhpStan\Rule\ForbidGlobBraceRule
+    - HeyFrame\PhpStan\Rule\InternalClassExtendsRule
+    - HeyFrame\PhpStan\Rule\InternalFunctionCallRule
+    - HeyFrame\PhpStan\Rule\InternalMethodCallRule
+    - HeyFrame\PhpStan\Rule\MethodBecomesAbstractRule
+    - HeyFrame\PhpStan\Rule\NoDALFilterByID
+    - HeyFrame\PhpStan\Rule\NoSessionInPaymentHandlerAndStoreApiRule
+    - HeyFrame\PhpStan\Rule\NoSymfonySessionInConstructorRule
+    - HeyFrame\PhpStan\Rule\NoUserEntityGetStoreTokenRule
+    - HeyFrame\PhpStan\Rule\ScheduledTaskTooLowIntervalRule
+    - HeyFrame\PhpStan\Rule\SetForeignKeyRule
+    - HeyFrame\PhpStan\Rule\NoEntityRepositoryInLoopRule
+    - HeyFrame\PhpStan\Rule\NoSuperglobalsRule
+    - HeyFrame\PhpStan\Rule\ForbidLocalDiskWriteRule
+    - HeyFrame\PhpStan\Rule\BestPractise\PreferRouteEventRule
+    - HeyFrame\PhpStan\Rule\BestPractise\DALDefinitionRule
+    - HeyFrame\PhpStan\Rule\ForwardSalesChannelContextToSystemConfigServiceRule
+
+services:
+    -
+        class: HeyFrame\PhpStan\Type\CollectionHasSpecifyingExtension
+        tags:
+            - phpstan.typeSpecifier.methodTypeSpecifyingExtension
+
+    -
+        class: HeyFrame\PhpStan\Collector\DALDefinitionCollector
+        tags:
+            - phpstan.collector
+
+    -
+        class: HeyFrame\PhpStan\Collector\DALEntityCollector
+        tags:
+            - phpstan.collector
+

@@ -1,0 +1,16 @@
+services:
+    -
+        class: HeyFrame\PhpStan\Type\CollectionHasSpecifyingExtension
+        tags:
+            - phpstan.typeSpecifier.methodTypeSpecifyingExtension
+
+    -
+        class: HeyFrame\PhpStan\Collector\DALDefinitionCollector
+        tags:
+            - phpstan.collector
+
+    -
+        class: HeyFrame\PhpStan\Collector\DALEntityCollector
+        tags:
+            - phpstan.collector
+
