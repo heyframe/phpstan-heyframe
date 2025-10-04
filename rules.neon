@@ -19,7 +19,7 @@ rules:
     - HeyFrame\PhpStan\Rule\ForbidLocalDiskWriteRule
     - HeyFrame\PhpStan\Rule\BestPractise\PreferRouteEventRule
     - HeyFrame\PhpStan\Rule\BestPractise\DALDefinitionRule
-    - HeyFrame\PhpStan\Rule\ForwardSalesChannelContextToSystemConfigServiceRule
+    - HeyFrame\PhpStan\Rule\ForwardChannelContextToSystemConfigServiceRule
 
 services:
     -

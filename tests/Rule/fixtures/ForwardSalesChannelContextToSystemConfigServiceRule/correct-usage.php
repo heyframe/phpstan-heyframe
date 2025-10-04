@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace HeyFrame\PhpStan\Tests\Rule\fixtures\ForwardSalesChannelContextToSystemConfigServiceRule;
+namespace HeyFrame\PhpStan\Tests\Rule\fixtures\ForwardChannelContextToSystemConfigServiceRule;
 
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 
 class CorrectUsage
@@ -16,13 +16,13 @@ class CorrectUsage
         $this->systemConfigService = $systemConfigService;
     }
 
-    public function correct(SalesChannelContext $salesChannelContext): void
+    public function correct(ChannelContext $channelContext): void
     {
-        $this->systemConfigService->get('foo.bar', $salesChannelContext->getSalesChannelId());
-        $this->systemConfigService->getString('foo.bar', $salesChannelContext->getSalesChannel()->getId());
-        $this->systemConfigService->getInt('foo.bar', $salesChannelContext->getSalesChannelId());
-        $this->systemConfigService->getFloat('foo.bar', $salesChannelContext->getSalesChannelId());
-        $this->systemConfigService->getBool('foo.bar', $salesChannelContext->getSalesChannelId());
+        $this->systemConfigService->get('foo.bar', $channelContext->getChannelId());
+        $this->systemConfigService->getString('foo.bar', $channelContext->getChannel()->getId());
+        $this->systemConfigService->getInt('foo.bar', $channelContext->getChannelId());
+        $this->systemConfigService->getFloat('foo.bar', $channelContext->getChannelId());
+        $this->systemConfigService->getBool('foo.bar', $channelContext->getChannelId());
     }
 
     public function correctWithoutContext(): void

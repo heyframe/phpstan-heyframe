@@ -48,7 +48,6 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedAtField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedByField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\FieldCollection;
-use HeyFrame\Core\System\CustomEntity\Schema\DynamicMappingEntityDefinition;
 
 /**
  * @phpstan-type EntityFields array<string, array{required: bool, computed: bool, runtime: bool}>
@@ -77,10 +76,6 @@ class DALDefinitionCollector implements Collector
         }
 
         if (!$classReflection->isSubclassOf(EntityDefinition::class)) {
-            return null;
-        }
-
-        if ($classReflection->is(DynamicMappingEntityDefinition::class)) {
             return null;
         }
 

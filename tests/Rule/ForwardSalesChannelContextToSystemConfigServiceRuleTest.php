@@ -6,35 +6,35 @@ namespace HeyFrame\PhpStan\Tests\Rule;
 
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
-use HeyFrame\PhpStan\Rule\ForwardSalesChannelContextToSystemConfigServiceRule;
+use HeyFrame\PhpStan\Rule\ForwardChannelContextToSystemConfigServiceRule;
 
 /**
- * @extends RuleTestCase<ForwardSalesChannelContextToSystemConfigServiceRule>
+ * @extends RuleTestCase<ForwardChannelContextToSystemConfigServiceRule>
  */
-class ForwardSalesChannelContextToSystemConfigServiceRuleTest extends RuleTestCase
+class ForwardChannelContextToSystemConfigServiceRuleTest extends RuleTestCase
 {
     public function testRule(): void
     {
-        $this->analyse([__DIR__ . '/fixtures/ForwardSalesChannelContextToSystemConfigServiceRule/correct-usage.php'], []);
-        $this->analyse([__DIR__ . '/fixtures/ForwardSalesChannelContextToSystemConfigServiceRule/wrong-usage.php'], [
+        $this->analyse([__DIR__ . '/fixtures/ForwardChannelContextToSystemConfigServiceRule/correct-usage.php'], []);
+        $this->analyse([__DIR__ . '/fixtures/ForwardChannelContextToSystemConfigServiceRule/wrong-usage.php'], [
             [
-                'SystemConfigService methods expects a salesChannelId as second parameter. When a method gets a SalesChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
+                'SystemConfigService methods expects a channelId as second parameter. When a method gets a ChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
                 21,
             ],
             [
-                'SystemConfigService methods expects a salesChannelId as second parameter. When a method gets a SalesChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
+                'SystemConfigService methods expects a channelId as second parameter. When a method gets a ChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
                 22,
             ],
             [
-                'SystemConfigService methods expects a salesChannelId as second parameter. When a method gets a SalesChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
+                'SystemConfigService methods expects a channelId as second parameter. When a method gets a ChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
                 23,
             ],
             [
-                'SystemConfigService methods expects a salesChannelId as second parameter. When a method gets a SalesChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
+                'SystemConfigService methods expects a channelId as second parameter. When a method gets a ChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
                 24,
             ],
             [
-                'SystemConfigService methods expects a salesChannelId as second parameter. When a method gets a SalesChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
+                'SystemConfigService methods expects a channelId as second parameter. When a method gets a ChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error',
                 25,
             ],
         ]);
@@ -42,6 +42,6 @@ class ForwardSalesChannelContextToSystemConfigServiceRuleTest extends RuleTestCa
 
     protected function getRule(): Rule
     {
-        return new ForwardSalesChannelContextToSystemConfigServiceRule($this->createReflectionProvider());
+        return new ForwardChannelContextToSystemConfigServiceRule($this->createReflectionProvider());
     }
 }

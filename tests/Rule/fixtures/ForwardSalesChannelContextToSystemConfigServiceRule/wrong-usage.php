@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace HeyFrame\PhpStan\Tests\Rule\fixtures\ForwardSalesChannelContextToSystemConfigServiceRule;
+namespace HeyFrame\PhpStan\Tests\Rule\fixtures\ForwardChannelContextToSystemConfigServiceRule;
 
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 
 class WrongUsage
@@ -16,7 +16,7 @@ class WrongUsage
         $this->systemConfigService = $systemConfigService;
     }
 
-    public function wrong(SalesChannelContext $salesChannelContext): void
+    public function wrong(ChannelContext $channelContext): void
     {
         $this->systemConfigService->get('foo.bar');
         $this->systemConfigService->getString('foo.bar');

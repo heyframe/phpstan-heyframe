@@ -11,13 +11,13 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use HeyFrame\Core\System\Channel\ChannelContext;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 
 /**
  * @implements Rule<MethodCall>
  */
-class ForwardSalesChannelContextToSystemConfigServiceRule implements Rule
+class ForwardChannelContextToSystemConfigServiceRule implements Rule
 {
     public function getNodeType(): string
     {
@@ -33,54 +33,54 @@ class ForwardSalesChannelContextToSystemConfigServiceRule implements Rule
             return [];
         }
 
-        $salesChannelContextVarName = null;
+        $channelContextVarName = null;
 
         foreach ($scope->getDefinedVariables() as $variableName) {
             $variableType = $scope->getVariableType($variableName);
-            if ((new ObjectType(SalesChannelContext::class))->isSuperTypeOf($variableType)->yes()) {
-                $salesChannelContextVarName = $variableName;
+            if ((new ObjectType(ChannelContext::class))->isSuperTypeOf($variableType)->yes()) {
+                $channelContextVarName = $variableName;
                 break;
             }
         }
 
-        if ($salesChannelContextVarName === null) {
+        if ($channelContextVarName === null) {
             return [];
         }
 
         if (!isset($node->getArgs()[1])) {
             return [
-                RuleErrorBuilder::message('SystemConfigService methods expects a salesChannelId as second parameter. When a method gets a SalesChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error')
-                    ->identifier('heyframe.forwardSalesChannelContext')
+                RuleErrorBuilder::message('SystemConfigService methods expects a channelId as second parameter. When a method gets a ChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error')
+                    ->identifier('heyframe.forwardChannelContext')
                     ->build(),
             ];
         }
 
-        $salesChannelId = $node->getArgs()[1]->value;
+        $channelId = $node->getArgs()[1]->value;
 
-        if ($salesChannelId instanceof MethodCall
-            && $salesChannelId->var instanceof Node\Expr\Variable
-            && $salesChannelId->var->name === $salesChannelContextVarName
-            && $salesChannelId->name instanceof Identifier
-            && $salesChannelId->name->name === 'getSalesChannelId'
+        if ($channelId instanceof MethodCall
+            && $channelId->var instanceof Node\Expr\Variable
+            && $channelId->var->name === $channelContextVarName
+            && $channelId->name instanceof Identifier
+            && $channelId->name->name === 'getChannelId'
         ) {
             return [];
         }
 
-        if ($salesChannelId instanceof MethodCall
-            && $salesChannelId->var instanceof MethodCall
-            && $salesChannelId->var->var instanceof Node\Expr\Variable
-            && $salesChannelId->var->var->name === $salesChannelContextVarName
-            && $salesChannelId->var->name instanceof Identifier
-            && $salesChannelId->var->name->name === 'getSalesChannel'
-            && $salesChannelId->name instanceof Identifier
-            && $salesChannelId->name->name === 'getId'
+        if ($channelId instanceof MethodCall
+            && $channelId->var instanceof MethodCall
+            && $channelId->var->var instanceof Node\Expr\Variable
+            && $channelId->var->var->name === $channelContextVarName
+            && $channelId->var->name instanceof Identifier
+            && $channelId->var->name->name === 'getChannel'
+            && $channelId->name instanceof Identifier
+            && $channelId->name->name === 'getId'
         ) {
             return [];
         }
 
         return [
-            RuleErrorBuilder::message('SystemConfigService methods expects a salesChannelId as second parameter. When a method gets a SalesChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error')
-                ->identifier('heyframe.forwardSalesChannelContext')
+            RuleErrorBuilder::message('SystemConfigService methods expects a channelId as second parameter. When a method gets a ChannelContext passed and that parameter is not forwarded to SystemConfigService we should throw an phpstan error')
+                ->identifier('heyframe.forwardChannelContext')
                 ->build(),
         ];
     }
